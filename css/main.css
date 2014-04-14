@@ -114,23 +114,120 @@ textarea {
     padding: 0.2em 0;
 }
 
+.js div#no-js { display: none; }
+.no-js section#address-form { display: none; }
+
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
 
-div.wrapper {
+.row:before, .row:after {
+    content: " ";
+    display: table; }
+.row:after { clear: both; }
+
+div#wrapper {
     max-width: 720px;
     padding: 11px;
     margin: 0 auto;
 }
+
+div.warning {
+    background: #c31844;
+    color: #fff;
+    padding: 11px 11px 11px 88px;
+    position: relative;
+}
+
+div.warning:before {
+    content: "!";
+    display: block;
+    background: #fff;
+    color: #c31844;
+    width: 44px; height: 44px;
+    position: absolute;
+    left: 22px; top: 50%;
+    margin-top: -22px;
+    -moz-border-radius: 999px;
+    -webkit-border-radius: 999px;
+    border-radius: 999px;
+    text-align: center;
+    font-size: 44px;
+    line-height: 44px;
+}
+
+p:not(.lead) { max-width: 600px; }
 
 p.lead {
     font-size: 18px;
 }
 
 p.note {
+    clear: both;
     color: #777;
     font-size: 14px;
+    padding-left: 66px;
+    position: relative;
+}
+
+p.note:before {
+    content: "\f0a4";
+    display: block;
+    color: #777;
+    position: absolute;
+    left: 19px; top: 6px;
+    text-align: center;
+    font-size: 28px;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+input#address {
+    -webkit-appearance: none;
+    outline: none;
+    background: #e8eaef;
+    border: 2px solid #e8eaef;
+    height: 44px;
+    width: 100%;
+    padding: 0 170px 0 11px;
+    float: left;
+    margin: 0 -170px 16px 0;
+}
+
+input#address:focus {
+    background: #fff;
+}
+
+button#address-validate {
+    width: 170px;
+    height: 44px;
+    border: none;
+    background: #1f92c2;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    float: left;
+    margin: 0 0 16px 0;
+}
+
+div.map-wrapper {
+    width: 60%;
+    display: inline-block;
+    position: relative;
+    float: left;
+}
+.map-wrapper:after {
+    padding-top: 80%;
+    display: block;
+    content: '';
+}
+.map {
+    position: absolute;
+    top: 0; bottom: 0; right: 0; left: 0;
 }
 
 ul.graphic-likert:not(#foo) {
