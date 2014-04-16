@@ -32,19 +32,65 @@ $(function () {
         red = '#c31844';
 
     dataDeferred.done(function () {
-        // var locationData = dataForCoordinates({ lat: 38.911124, lon: -77.036799 });
-        var locationData = dataForCoordinates({ lat: 38.927962, lon: -77.037526 });
-        // var locationData = dataForCoordinates({ lat: 38.952096, lon: -77.068123 });
-        // var locationData = dataForCoordinates({ lat: 38.870741, lon: -76.982017 });
+        // // var locationData = dataForCoordinates({ lat: 38.911124, lon: -77.036799 });
+        // var locationData = dataForCoordinates({ lat: 38.927962, lon: -77.037526 });
+        // // var locationData = dataForCoordinates({ lat: 38.952096, lon: -77.068123 });
+        // // var locationData = dataForCoordinates({ lat: 38.870741, lon: -76.982017 });
 
-        window.test = locationData;
+        // window.test = locationData;
 
-        renderTemplate(locationData);
+        // renderTemplate(locationData);
     });
 
     dataDeferred.fail(function () {
         // deal with AJAX errors
     });
+
+    $('#address-validate').click(function() {
+        lookupAddress($('#address').val(), function (data) {
+            if (data) {
+                dataDeferred.done(function () {
+                    var locationData = dataForCoordinates({ lat: data.lat, lon: data.lon });
+                    $('#address').val(data.address);
+                    renderTemplate(locationData);
+                });
+            } else {
+                alert('Problem with the address entered');
+            }
+        });
+    });
+
+    function lookupAddress(address, callback) {
+        if (address) {
+            $.post('/api/dcgis', {address: address}, function (data) {
+                var address,
+                    latitude,
+                    longitude,
+                    ward,
+                    neighborhoodCluster,
+                    returnedAddresses = $(data).find('FULLADDRESS');
+                if (returnedAddresses.length === 1) {
+                    address = $(returnedAddresses[0]).text();
+                    latitude = parseFloat($($(data).find('LATITUDE')[0]).text());
+                    longitude = parseFloat($($(data).find('LONGITUDE')[0]).text());
+                    ward = parseInt($($(data).find('WARD_2012')[0]).text().split(' ')[1],10);
+                    neighborhoodCluster = parseInt($($(data).find('CLUSTER_')[0]).text().split(' ')[1],10);
+
+                    callback({
+                        'address': address,
+                        'lat': latitude,
+                        'lon': longitude,
+                        'ward': ward,
+                        'nc': neighborhoodCluster
+                    });
+                } else {
+                    callback();
+                }
+            });
+        } else {
+            callback();
+        }
+    }
 
     function renderTemplate(data) {
         data.helpers = templateHelpers;
