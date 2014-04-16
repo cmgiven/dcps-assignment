@@ -121,6 +121,12 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+#renderedTemplate {
+    display: none;
+}
+
+h2 { margin-top: 2em; }
+
 .row:before, .row:after {
     content: " ";
     display: table; }
@@ -216,7 +222,6 @@ button#address-validate {
 
 div.map-wrapper {
     width: 60%;
-    display: inline-block;
     position: relative;
     float: left;
 }
@@ -229,6 +234,60 @@ div.map-wrapper {
     position: absolute;
     top: 0; bottom: 0; right: 0; left: 0;
 }
+
+.map-description {
+    width: 40%;
+    float: left;
+    padding: 0 11px;
+    font-size: 14px;
+}
+
+.map-description p {
+    margin: 0;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+}
+
+ul.map-legend {
+    margin-top: 0;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+ul.map-legend li i {
+    width: 13px;
+}
+
+i.blue { color: #1f92c2; }
+i.orange { color: #e03f24; }
+i.green { color: #5b9f25; }
+i.red { color: #c31844; }
+
+div.schools-list {
+    width: 50%;
+}
+
+div.schools-list-old, div.schools-list-new {
+    float: left;
+    padding-right: 11px;
+}
+
+div.schools-list ul {
+    padding-left: 11px;
+    list-style-type: none;
+}
+
+div.schools-list .title {
+    background: #1f92c2;
+    font-weight: 700;
+    color: #fff;
+    width: 100%;
+    display: block;
+    padding: 5px 11px;
+}
+
+div.schools-list-old .title { background: #e03f24; }
 
 ul.graphic-likert:not(#foo) {
     padding: 0 11px;
@@ -325,7 +384,21 @@ ul.graphic-likert:not(#foo) li:nth-child(4) > input[type='radio']:checked + labe
     background: #71b6d8;
 }
 
+textarea.comment {
+    width: 100%;
+    background: #e8eaef;
+    border: 2px solid #e8eaef;
+    -webkit-appearance: none;
+    outline: none;
+    resize: none;
+    overflow: hidden;
+    padding: 11px;
+    display: none;
+}
 
+textarea.comment:focus {
+    background: #fff;
+}
 
 
 

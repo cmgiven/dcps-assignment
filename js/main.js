@@ -11,10 +11,6 @@ $(function () {
         template = _.template($('#template').html()),
         templateHelpers = {},
 
-        tiles = L.tileLayer('http://api.tiles.mapbox.com/v3/cmgiven.hpfpddp6/{z}/{x}/{y}.png', {
-            attribution: '<a href="https://www.mapbox.com">Mapbox</a>',
-            maxZoom: 18
-        }),
         homeIcon = L.AwesomeMarkers.icon({
             icon: 'home',
             markerColor: 'green',
@@ -32,11 +28,14 @@ $(function () {
         }),
         blue = '#1f92c2',
         orange = '#e03f24',
-        green = '',
+        green = '#5b9f25',
         red = '#c31844';
 
     dataDeferred.done(function () {
-        var locationData = dataForCoordinates({ lat: 38.911124, lon: -77.036799 });
+        // var locationData = dataForCoordinates({ lat: 38.911124, lon: -77.036799 });
+        var locationData = dataForCoordinates({ lat: 38.927962, lon: -77.037526 });
+        // var locationData = dataForCoordinates({ lat: 38.952096, lon: -77.068123 });
+        // var locationData = dataForCoordinates({ lat: 38.870741, lon: -76.982017 });
 
         window.test = locationData;
 
@@ -50,23 +49,74 @@ $(function () {
     function renderTemplate(data) {
         data.helpers = templateHelpers;
         data.helpers.feedbackForm = _.template($('#feedback-form-template').html());
-        $('#renderedTemplate').html(template(data));
+        $('#renderedTemplate').html(template(data)).fadeIn();
 
         var boundaryMap = L.map('boundary-map')
             .setView(data.home, 14)
-            .addLayer(tiles);
+            .addLayer(L.tileLayer('http://api.tiles.mapbox.com/v3/cmgiven.hpfpddp6/{z}/{x}/{y}.png', {
+                attribution: '<a href="https://www.mapbox.com">Mapbox</a>',
+                maxZoom: 18
+        }));
+
+        if (data.newBoundary.feature.properties.CHANGE !== 'unchanged.') {
+            data.oldBoundary
+                .setStyle({
+                    color: orange,
+                    weight: 3,
+                    opacity: 1,
+                    fillOpacity: 0
+                })
+                .addTo(boundaryMap);
+        }
 
         data.newBoundary
             .setStyle({
-                color: blue
+                color: blue,
+                weight: 3,
+                opacity: 1,
+                fillOpacity: 0
             })
             .addTo(boundaryMap);
 
         L.marker(data.home, {icon: homeIcon}).addTo(boundaryMap);
 
+        if (data.boundaryChanged) {
+            L.marker([data.oldES.latitude, data.oldES.longitude],{icon: schoolIcon2})
+                .bindPopup('<b>' + data.oldES.school_name + '</b><br />' + data.oldES.address)
+                .addTo(boundaryMap);
+        }
+
         L.marker([data.newES.latitude, data.newES.longitude],{icon: schoolIcon1})
             .bindPopup('<b>' + data.newES.school_name + '</b><br />' + data.newES.address)
             .addTo(boundaryMap);
+
+        var closestMiddleSchoolsMap = L.map('closest-middle-schools-map')
+            .setView(data.home, 13)
+            .addLayer(L.tileLayer('http://api.tiles.mapbox.com/v3/cmgiven.hpfpddp6/{z}/{x}/{y}.png', {
+                attribution: '<a href="https://www.mapbox.com">Mapbox</a>',
+                maxZoom: 18
+        }));
+
+        L.marker(data.home, {icon: homeIcon}).addTo(closestMiddleSchoolsMap);
+
+        L.marker([data.closestMiddleSchools[0].latitude, data.closestMiddleSchools[0].longitude],{icon: schoolIcon1})
+            .bindPopup('<b>' + data.closestMiddleSchools[0].school_name + '</b><br />' + data.closestMiddleSchools[0].address)
+            .addTo(closestMiddleSchoolsMap);
+
+        L.marker([data.closestMiddleSchools[1].latitude, data.closestMiddleSchools[1].longitude],{icon: schoolIcon2})
+            .bindPopup('<b>' + data.closestMiddleSchools[1].school_name + '</b><br />' + data.closestMiddleSchools[1].address)
+            .addTo(closestMiddleSchoolsMap);
+
+        $('ul.graphic-likert input').change(function () {
+            $('#' + $(this).attr('name') + '-comment').fadeIn();
+        });
+
+        $('textarea.comment').on('input', function () {
+            var $this = $(this),
+                offset = 26;
+            $this.css('height', 'auto');
+            $this.css('height', $this.prop("scrollHeight") + offset);
+        });
     }
 
     function dataForCoordinates(coords) {
@@ -78,14 +128,16 @@ $(function () {
             newBoundariesGJLayer = L.geoJson(newBoundariesGeoJson),
             oldBoundary = leafletPip.pointInLayer(coords, oldBoundariesGJLayer)[0],
             newBoundary = leafletPip.pointInLayer(coords, newBoundariesGJLayer)[0],
-            oldES = schoolForCode(oldBoundary.feature.properties.SCHOOLCODE),
-            newES = schoolForCode(newBoundary.feature.properties.SCHOOLCODE),
+            oldEScode = oldBoundary.feature.properties.SCHOOLCODE,
+            newEScode = newBoundary.feature.properties.SCHOOLCODE,
+            oldES = oldEScode > 0 ? schoolForCode(oldEScode) : 'CLOSED',
+            newES = schoolForCode(newEScode),
             feederPattern = {
-                'old': {
+                'old': oldES !== 'CLOSED' ? {
                     'es': oldES,
                     'ms': isNaN(oldES.old_fp_ms) ? oldES.old_fp_ms : schoolForCode(oldES.old_fp_ms),
                     'hs': isNaN(oldES.old_fp_hs) ? oldES.old_fp_hs : schoolForCode(oldES.old_fp_hs)
-                },
+                } : { 'es': null, 'ms': null, 'hs': null },
                 'new': {
                     'es': newES,
                     'ms': isNaN(newES.new_fp_ms) ? newES.new_fp_ms : schoolForCode(newES.new_fp_ms),
@@ -104,6 +156,9 @@ $(function () {
                 'es': {
                     'choiceSet': newES.choice_set,
                     'schools': esSchools
+                },
+                'ms': {
+                    'schools': []
                 }
             };
         }
@@ -118,6 +173,33 @@ $(function () {
             });
 
             return _.first(schools, n);
+        }
+
+        function setAsides() {
+            var eligible,
+                fpSchools = _.values(feederPattern['new']),
+                allSchools = _.union(fpSchools, choiceSet().es, choiceSet().ms),
+                acceptingSchools = _.where(allSchools, { 'esea': 'Reward' }),
+                eligibleLevels = _.keys(_.omit(feederPattern['new'], function (school) {
+                    return school.esea !== 'Priority';
+                })),
+                dict = { 'es': 'elementary', 'ms': 'middle', 'hs': 'high' };
+
+            if (eligibleLevels.length > 0) {
+                eligible = dict[eligibleLevels[0]];
+                if (eligibleLevels.length === 2) {
+                    eligible = eligible + ' and ' + dict[eligibleLevels[1]];
+                } else if (eligibleLevels.length === 3)  {
+                    eligible = eligible + ', ' + dict[eligibleLevels[1]] + ', and ' + dict[eligibleLevels[2]];
+                }
+            } else {
+                eligible = false;
+            }
+
+            return {
+                eligible: eligible,
+                accepting: acceptingSchools
+            };
         }
 
         function schoolForCode(code) {
@@ -135,13 +217,22 @@ $(function () {
             'choiceSet': choiceSet(),
             'closestMiddleSchools': nearestSchools(2, function(school) {
                 return _.intersection(school.grades, ['06', '07', '08']).length === 3;
-            })
+            }),
+            'setAsides': setAsides()
         };
     }
 
     templateHelpers.learndcURL = function (code) {
         code = code.length === 4 ? code : '0' + code;
         return 'http://www.learndc.org/schoolprofiles/view#' + code + '/overview';
+    };
+
+    templateHelpers.learndcLink = function (school) {
+        return '<a href="' +
+            templateHelpers.learndcURL(school.school_code) +
+            '" target="_blank">' +
+            school.school_name +
+            '</a>';
     };
 
     templateHelpers.gradesString = function (arr) {

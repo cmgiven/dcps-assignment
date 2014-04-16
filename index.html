@@ -54,17 +54,55 @@
 
             <h2>School Boundaries</h2>
 
-            <p>Every address in DC is assigned to a school boundary, which gives students living within that boundary the right to attend a specified school or schools. These boundaries have not been comprehensively reviewed since the 1970s, even as many schools have opened or closed and the city's population has changed.</p>
+            <p>Every address in DC is assigned to a school boundary, which gives students living within that boundary the right to attend a specific school or schools. These boundaries have not been comprehensively reviewed since the 1970s, even as schools have opened or closed and the city's population has changed.</p>
 
-            <p>Under the new boundary proposal, your school boundary would be unchanged. This means your current neighborhood elementary school will continue to draw from the same population of students.</p>
+            <% if (boundaryChanged) { if (oldES === 'CLOSED') { %>
 
-            <p>Under the new boundary proposal, your current school boundary would be {{change}}. Despite this change, you would continue to be assigned to your current neighborhood elementary school.</p>
+                <p>The school you are currently zoned for, <%= oldBoundary.feature.properties.SCHOOLNAME %> ES, has been closed, and we are missing information about the school to which you are currently assigned. If you can help us fill in gaps, please consider <a href="mailto:cmgiven@gmail.com">sending us an email</a>. The proposed school boundaries would assign you to <%= helpers.learndcLink(newES) %>.</p>
 
-            <p>Under the new boundary proposal, your address would be assigned to a different school boundary, which was {{change}}. This means that instead of being assigned to {{old_school}} you would be assigned to {{new_school}}.</p>
+                <% } else { %>
+
+                <p>Under the new boundary proposal, your address would be assigned to a different school boundary, which would be <%= newBoundary.feature.properties.CHANGE %> This means that you would be assigned to <%= helpers.learndcLink(newES) %> instead of <%= helpers.learndcLink(oldES) %>.</p>
+
+            <% } } else if (newBoundary.feature.properties.CHANGE === 'unchanged.') { %>
+
+                <p>Under the new boundary proposal, your school boundary would be unchanged. This means you would continue to be assigned to your current neighborhood elementary school, <%= helpers.learndcLink(newES) %>.</p>
+
+            <% } else { %>
+
+                <p>Under the new boundary proposal, your current school boundary would be <%= newBoundary.feature.properties.CHANGE %> Despite this change, you would continue to be assigned to your current neighborhood elementary school, <%= helpers.learndcLink(newES) %>.</p>
+
+            <% } %>
 
             <div class="row">
                 <div class="map-wrapper"><div id="boundary-map" class="map"></div></div>
+                <div class="map-description">
+                    <ul class="map-legend">
+                        <li><i class="fa fa-home green"></i> Home</li>
+                        <% if (!boundaryChanged) { %>
+                            <li><i class="fa fa-book blue"></i> <%= newES.school_name %></li>
+                        <% } %>
+                        <% if (newBoundary.feature.properties.CHANGE === 'unchanged.') { %>
+                            <li><i class="fa fa-minus blue"></i> School Boundary</li>
+                        <% } %>
+                        <% if (boundaryChanged) { %>
+                            <li><i class="fa fa-book blue"></i> Proposed School (<%= newES.school_name %>)</li>
+                        <% } %>
+                        <% if (newBoundary.feature.properties.CHANGE !== 'unchanged.') { %>
+                            <li><i class="fa fa-minus blue"></i> Proposed School Boundary</li>
+                        <% } %>
+                        <% if (boundaryChanged && oldES !== 'CLOSED') { %>
+                            <li><i class="fa fa-book orange"></i> Current School (<%= oldES.school_name %>)</li>
+                        <% } %>
+                        <% if (newBoundary.feature.properties.CHANGE !== 'unchanged.') { %>
+                            <li><i class="fa fa-minus orange"></i> Current School Boundary</li>
+                        <% } %>
+                    </ul>
+                    <p>The advisory committee says, "<%= newBoundary.feature.properties.DESCRIPT1 + newBoundary.feature.properties.DESCRIPT2 %>"</p>
+                </div>
             </div>
+
+            <p class="note">What's the big picture? The Washington Post created an <a href="http://www.washingtonpost.com/wp-srv/special/local/proposed-elementary-school-zones/" target="_blank">interactive map</a> illustrating all of the boundary changes for the entire city.</p>
 
             <%= helpers.feedbackForm({ id: 'q1' }) %>
 
@@ -76,13 +114,84 @@
 
             <p>Every traditional elementary school "feeds" its students to a middle and a high school. These groups of schools are known as "feeder patterns." In some cases, these patterns are currently inconsistent or result in overcrowded schools.</p>
 
-            <p>The advisory committee has proposed changes to the feeder patterns. Your current feeder pattern, however, would remain the same under this proposal.</p>
+            <% if (oldES.old_fp_ms === newES.new_fp_ms && oldES.old_fp_hs === newES.new_fp_hs) { %>
+                <p>The advisory committee has proposed changes to the feeder patterns. Your current feeder pattern, however, would remain the same under this proposal.</p>
+            <% } else { %>
 
-            <p>We're missing information about your current feeder pattern. This could be the result of a school closing, or it might just be our fault (sorry!). We are able to show your proposed feeder pattern.</p>
+            <% if (oldES.old_fp_ms === null || oldES.old_fp_hs === null) { %>
+                <p>We're missing information about your current feeder pattern. If you can help us fill in gaps, please consider <a href="mailto:cmgiven@gmail.com">sending us an email</a>.</p>
+            <% } %>
 
-            <p>The boundaries proposal (see above) would change the elementary school you are zoned for. As a result, we are showing the proposed feeder pattern of this new school boundary.</p>
+            <% if (boundaryChanged) { %>
+                <p>The boundaries proposal (see above) would change the elementary school you are zoned for. As a result, we are showing the proposed feeder pattern of this new school boundary.</p>
+            <% } else { %>
+                <p>The advisory committee has proposed changing your feeder pattern.</p>
+            <% } } %>
 
-            <p>The advisory committee has proposed changing your feeder pattern.</p>
+            <div class="row">
+                <% if (oldES.old_fp_ms !== newES.new_fp_ms || oldES.old_fp_hs !== newES.new_fp_hs) { %>
+                <div class="schools-list schools-list-old">
+                    <span class="title">Current Feeder Pattern</span>
+                    <ul>
+                        <li>Elementary: <% if (_.isObject(feederPattern['old'].es)) { %>
+                                <%= helpers.learndcLink(feederPattern['old'].es) %>
+                            <% } else if (feederPattern['old'].es === 'NEW') { %>
+                                New School
+                            <% } else { %>
+                                Missing
+                            <% } %>
+                        </li>
+                        <li>Middle: <% if (_.isObject(feederPattern['old'].ms)) { %>
+                                <%= helpers.learndcLink(feederPattern['old'].ms) %>
+                            <% } else if (feederPattern['old'].ms === 'NEW') { %>
+                                New School
+                            <% } else { %>
+                                Missing
+                            <% } %>
+                        </li>
+                        <li>High: <% if (_.isObject(feederPattern['old'].hs)) { %>
+                                <%= helpers.learndcLink(feederPattern['old'].hs) %>
+                            <% } else if (feederPattern['old'].hs === 'NEW') { %>
+                                New School
+                            <% } else { %>
+                                Missing
+                            <% } %>
+                        </li>
+                    </ul>
+                </div>
+                <% } %>
+                <div class="schools-list schools-list-new">
+                    <span class="title">Proposed Feeder Pattern</span>
+                    <ul>
+                        <li>Elementary: <% if (_.isObject(feederPattern['new'].es)) { %>
+                                <%= helpers.learndcLink(feederPattern['new'].es) %>
+                            <% } else if (feederPattern['new'].es === 'NEW') { %>
+                                New School
+                            <% } else { %>
+                                Missing
+                            <% } %>
+                        </li>
+                        <li>Middle: <% if (_.isObject(feederPattern['new'].ms)) { %>
+                                <%= helpers.learndcLink(feederPattern['new'].ms) %>
+                            <% } else if (feederPattern['new'].ms === 'NEW') { %>
+                                New School
+                            <% } else { %>
+                                Missing
+                            <% } %>
+                        </li>
+                        <li>High: <% if (_.isObject(feederPattern['new'].hs)) { %>
+                                <%= helpers.learndcLink(feederPattern['new'].hs) %>
+                            <% } else if (feederPattern['new'].hs === 'NEW') { %>
+                                New School
+                            <% } else { %>
+                                Missing
+                            <% } %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="note">Do students follow these feeder patterns? We created a <a href="http://cmgiven.github.io/feeder-patterns" target="_blank">visualization tool</a> to explore how students move between schools in the DC system.</p>
 
             <%= helpers.feedbackForm({ id: 'q2' }) %>
 
@@ -94,12 +203,30 @@
 
             <p>Currently, all DC students are guaranteed access to a neighborhood elementary school based on where they live. One potential policy change being considered by the advisory committee would replace this single school of right with a "school choice set."</p>
             <p>Families would rank the three or four schools in their assigned choice set. If more students select a school than it has spaces, the result would be determined by a lottery. Students would be guaranteed access to one of the schools in the choice set, but not to a specific school.</p>
+
+            <div class="schools-list">
+                <span class="title">Proposed Choice Set</span>
+                <ul>
+                    <% _.forEach(choiceSet.es.schools, function (school) { %>
+                        <li><% if (_.isObject(school)) { %>
+                                <%= helpers.learndcLink(school) %><% if(school === newES) { %>*<% } %>
+                            <% } else if (school === 'NEW') { %>
+                                New School
+                            <% } else if (school === 'PCS') { %>
+                                Charter School
+                            <% } else { %>
+                                Missing
+                            <% } %>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
             
             <%= helpers.feedbackForm({ id: 'q3' }) %>
 
         </section>
 
-        <section id="ms-choice-sets">
+        <!-- <section id="ms-choice-sets">
 
             <h2>Middle School Choice Sets</h2>
 
@@ -109,13 +236,26 @@
             
             <%= helpers.feedbackForm({ id: 'q4' }) %>
 
-        </section>
+        </section> -->
 
         <section id="ms-proximity">
 
             <h2>Choice of Two Closest Middle Schools</h2>
 
-            <p>Instead of the current single school of right or the middle school choice sets (see above), the advisory committee is also considering guaranteeing access to the two schools closest to a student's home. Students would choose which of these schools they prefer but would not be guaranteed access to a specific school.</p>
+            <p>Instead of the current single school of right or the middle school choice sets (see above), the advisory committee is also considering guaranteeing access to the two schools closest to a student's home. Students would choose which they prefer but would not be guaranteed access to a specific school.</p>
+
+            <p>The two middle schools closest to your home are <%= helpers.learndcLink(closestMiddleSchools[0]) %> and <%= helpers.learndcLink(closestMiddleSchools[1]) %>.</p>
+
+            <div class="row">
+                <div class="map-description">
+                    <ul class="map-legend">
+                        <li><i class="fa fa-home green"></i> Home</li>
+                        <li><i class="fa fa-book blue"></i> <%= closestMiddleSchools[0].school_name %></li>
+                        <li><i class="fa fa-book orange"></i> <%= closestMiddleSchools[1].school_name %></li>
+                    </ul>
+                </div>
+                <div class="map-wrapper"><div id="closest-middle-schools-map" class="map"></div></div>
+            </div>
             
             <%= helpers.feedbackForm({ id: 'q5' }) %>
 
@@ -125,7 +265,11 @@
         
             <h2>Citywide Lottery</h2>
 
-            <p>Like elementary and middle schools, each student is currently guaranteed access to a single high school based on where they live. The advisory committee is considering removing high schools from this system.</p>
+            <p>Like elementary and middle schools, each student is currently guaranteed access to a single high school based on where they live. The advisory committee is considering eliminating this proximity preference for high school enrollment. This would mean that every student would enter a citywide lottery and would not be guaranteed access to a specific high school.</p>
+
+            <p>The high school that you would or would not have guaranteed access to is <%= helpers.learndcLink(feederPattern['new'].hs) %>.</p>
+
+            <p class="note">Looking for a way to search for and compare schools? Check out the <a href="http://www.learndc.org/schoolprofiles" target="_blank">LearnDC School Profiles</a> for information about every public school in DC.</p>
             
             <%= helpers.feedbackForm({ id: 'q6' }) %>
 
@@ -134,6 +278,24 @@
         <section id="set-asides">
 
             <h2>Set-Asides</h2>
+
+            <p>The advisory commitee is considering "setting aside" seats at high-performing schools for students zoned for low-performing ones. The current proposal calls for 10&ndash;15% of spaces to be used in this way.</p>
+
+            <p>The committee has not yet said how it would determine which schools are high- or low- performing.</p>
+
+            <% if (setAsides.eligible) { %>
+                <p>Looking at the schools in your feeder pattern, our best guess is that you would be eligible to apply for a set-aside during <%= setAsides.eligible %> school.</p>
+            <% } %>
+
+            <p>Looking at the schools in your feeder pattern and choice sets, our best guess is that the following school<% if (setAsides.accepting.length > 1) { %>s<% } %> would set aside seats:</p>
+
+            <ul>
+                <% _.forEach(setAsides.accepting, function (school) { %>
+                    <li><%= helpers.learndcLink(school) %></li>
+                <% }) %>
+            </ul>
+
+            <p class="note">Where do students in your neighborhood go to school? We built an <a href="http://edu.codefordc.org" target="_blank">interactive map</a> to visualize the patterns of movement between neighborhoods and schools.</p>
             
             <%= helpers.feedbackForm({ id: 'q7' }) %>
 
@@ -167,6 +329,8 @@
                 <label for="<%= id %>-5" class="excited">Strongly Like</label>
             </li>
         </ul>
+
+        <textarea name="<%= id %>-comment" id="<%= id %>-comment" class="comment" placeholder="Comment..." />
 
     </script>
 
