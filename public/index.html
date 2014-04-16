@@ -38,7 +38,9 @@
 
             <h2>Your Address</h2>
 
-            <input type="text" id="address" placeholder="Street address" /><button id="address-validate">Get Started</button>
+            <form id="address-lookup">
+                <input type="text" id="address" placeholder="Street address" /><button type="submit" id="address-validate">Get Started</button>
+            </form>
 
             <p class="note">When we share your responses, we'll first obscure your address to protect your privacy. "1600 Pennsylvania Ave" would become "16XX Pennsylvania Ave."</p>
 
@@ -221,7 +223,7 @@
                     <% }) %>
                 </ul>
             </div>
-            
+
             <%= helpers.feedbackForm({ id: 'q3' }) %>
 
         </section>
@@ -233,7 +235,7 @@
             <p>Similar to elementary school choice sets (see above), the advisory committee is considering choice sets for middle schools. Students would be guaranteed access to one of the schools in the choice set, but not a specific school.</p>
 
             <p>This proposal would likely be coupled with a plan to give every middle school a special focus. Some examples might include two-language instruction or an emphasis on science, technology, engineering and math (STEM). Which schools would focus on which topics has not been proposed at this time.</p>
-            
+
             <%= helpers.feedbackForm({ id: 'q4' }) %>
 
         </section> -->
@@ -256,13 +258,13 @@
                 </div>
                 <div class="map-wrapper"><div id="closest-middle-schools-map" class="map"></div></div>
             </div>
-            
+
             <%= helpers.feedbackForm({ id: 'q5' }) %>
 
         </section>
 
         <section id="hs-lottery">
-        
+
             <h2>Citywide Lottery</h2>
 
             <p>Like elementary and middle schools, each student is currently guaranteed access to a single high school based on where they live. The advisory committee is considering eliminating this proximity preference for high school enrollment. This would mean that every student would enter a citywide lottery and would not be guaranteed access to a specific high school.</p>
@@ -270,7 +272,7 @@
             <p>The high school that you would or would not have guaranteed access to is <%= helpers.learndcLink(feederPattern['new'].hs) %>.</p>
 
             <p class="note">Looking for a way to search for and compare schools? Check out the <a href="http://www.learndc.org/schoolprofiles" target="_blank">LearnDC School Profiles</a> for information about every public school in DC.</p>
-            
+
             <%= helpers.feedbackForm({ id: 'q6' }) %>
 
         </section>
@@ -296,7 +298,7 @@
             </ul>
 
             <p class="note">Where do students in your neighborhood go to school? We built an <a href="http://edu.codefordc.org" target="_blank">interactive map</a> to visualize the patterns of movement between neighborhoods and schools.</p>
-            
+
             <%= helpers.feedbackForm({ id: 'q7' }) %>
 
         </section>
