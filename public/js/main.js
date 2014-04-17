@@ -51,6 +51,7 @@ $(function () {
             if (data) {
                 dataDeferred.done(function () {
                     var locationData = dataForCoordinates({ lat: data.lat, lon: data.lon });
+                    window.test = locationData;
                     $('#address').val(data.address);
                     renderTemplate(locationData);
                 });
@@ -126,7 +127,7 @@ $(function () {
 
         L.marker(data.home, {icon: homeIcon}).addTo(boundaryMap);
 
-        if (data.boundaryChanged) {
+        if (data.boundaryChanged && _.isObject(data.oldES)) {
             L.marker([data.oldES.latitude, data.oldES.longitude],{icon: schoolIcon2})
                 .bindPopup('<b>' + data.oldES.school_name + '</b><br />' + data.oldES.address)
                 .addTo(boundaryMap);
