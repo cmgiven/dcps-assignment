@@ -46,7 +46,8 @@ $(function () {
         // deal with AJAX errors
     });
 
-    $('#address-validate').click(function() {
+    $('#address-form').on('submit', function (e) {
+        e.preventDefault();
         lookupAddress($('#address').val(), function (data) {
             if (data) {
                 dataDeferred.done(function () {
