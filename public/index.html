@@ -244,7 +244,7 @@
 
             <h2>Choice of Two Closest Middle Schools</h2>
 
-            <p>Instead of the current single school of right or the middle school choice sets (<a href="es-choice-sets">see above</a>), the advisory committee is also considering guaranteeing access to the two schools closest to a student's home. Students would choose which they prefer but would not be guaranteed access to a specific school.</p>
+            <p>Instead of the current single school of right or the middle school choice sets (<a href="#es-choice-sets">see above</a>), the advisory committee is also considering guaranteeing access to the two schools closest to a student's home. Students would choose which they prefer but would not be guaranteed access to a specific school.</p>
 
             <p>The two middle schools closest to your home are <%= helpers.learndcLink(closestMiddleSchools[0]) %> and <%= helpers.learndcLink(closestMiddleSchools[1]) %>.</p>
 
@@ -286,10 +286,10 @@
             <p>The committee has not yet said how it would determine which schools are high- or low- performing.</p>
 
             <% if (setAsides.eligible) { %>
-                <p>Looking at the schools in your <a href="feeder-patterns">feeder pattern</a>, our best guess is that you would be eligible to apply for a set-aside during <%= setAsides.eligible %> school.</p>
+                <p>Looking at the schools in your <a href="#feeder-patterns">feeder pattern</a>, our best guess is that you would be eligible to apply for a set-aside during <%= setAsides.eligible %> school.</p>
             <% } %>
 
-            <p>Looking at the schools in your <a href="feeder-pattern">feeder pattern</a> and <a href="es-choice-sets">choice sets</a>, our best guess is that the following school<% if (setAsides.accepting.length > 1) { %>s<% } %> would set aside seats:</p>
+            <p>Looking at the schools in your <a href="#feeder-pattern">feeder pattern</a> and <a href="#es-choice-sets">choice sets</a>, our best guess is that the following school<% if (setAsides.accepting.length > 1) { %>s<% } %> would set aside seats:</p>
 
             <ul>
                 <% _.forEach(setAsides.accepting, function (school) { %>
