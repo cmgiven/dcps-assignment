@@ -62,6 +62,13 @@ $(function () {
         });
     });
 
+    $('a').click(function(){
+        $('html, body').animate({
+            scrollTop: $( $.attr(this, 'href') ).offset().top
+        }, 500);
+        return false;
+    });
+
     function lookupAddress(address, callback) {
         if (address) {
             $.post('/api/dcgis', {address: address}, function (data) {
