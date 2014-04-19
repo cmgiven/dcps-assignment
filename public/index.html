@@ -289,13 +289,15 @@
                 <p>Looking at the schools in your <a href="#feeder-patterns">feeder pattern</a>, our best guess is that you would be eligible to apply for a set-aside during <%= setAsides.eligible %> school.</p>
             <% } %>
 
-            <p>Looking at the schools in your <a href="#feeder-pattern">feeder pattern</a> and <a href="#es-choice-sets">choice sets</a>, our best guess is that the following school<% if (setAsides.accepting.length > 1) { %>s<% } %> would set aside seats:</p>
+            <% if (setAsides.accepting.length > 0) { %>
+                <p>Looking at the schools in your <a href="#feeder-pattern">feeder pattern</a> and <a href="#es-choice-sets">choice sets</a>, our best guess is that the following school<% if (setAsides.accepting.length > 1) { %>s<% } %> would set aside seats:</p>
 
-            <ul>
-                <% _.forEach(setAsides.accepting, function (school) { %>
-                    <li><%= helpers.learndcLink(school) %></li>
-                <% }) %>
-            </ul>
+                <ul>
+                    <% _.forEach(setAsides.accepting, function (school) { %>
+                        <li><%= helpers.learndcLink(school) %></li>
+                    <% }) %>
+                </ul>
+            <% } %>
 
             <p class="note">Where do students in your neighborhood go to school? We built an <a href="http://edu.codefordc.org" target="_blank">interactive map</a> to visualize the patterns of movement between neighborhoods and schools.</p>
             
