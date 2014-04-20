@@ -129,9 +129,40 @@ h2 { margin-top: 2em; }
 .row:after { clear: both; }
 
 div#wrapper {
-    max-width: 720px;
-    padding: 11px 11px 98px 11px;
+    padding-bottom: 98px;
+}
+
+section, header {
+    max-width: 800px;
+    padding: 0 11px;
     margin: 0 auto;
+}
+
+header {
+    position: relative;
+    margin: 5% auto;
+}
+
+#logo-img {
+    max-width: 50%;
+}
+
+#sponsor-img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 11px;
+    height: 100%;
+}
+
+div.inverse {
+    background: #1f92c2;
+    color: #fff;
+    padding: 22px 0;
+}
+
+div.inverse a {
+    color: #fff;
 }
 
 div.alert {
@@ -183,7 +214,7 @@ div.alert a {
 p:not(.lead) { max-width: 600px; }
 
 p.lead {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 p.note {
@@ -234,7 +265,7 @@ button#address-validate {
     width: 170px;
     height: 44px;
     border: none;
-    background: #1f92c2;
+    background: #c31844;
     color: #fff;
     font-weight: 700;
     font-size: 18px;
