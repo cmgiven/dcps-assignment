@@ -75,8 +75,8 @@ $(function () {
                     address = $(returnedAddresses[0]).text();
                     latitude = parseFloat($($(data).find('LATITUDE')[0]).text());
                     longitude = parseFloat($($(data).find('LONGITUDE')[0]).text());
-                    ward = parseInt($($(data).find('WARD_2012')[0]).text().split(' ')[1],10);
-                    neighborhoodCluster = parseInt($($(data).find('CLUSTER_')[0]).text().split(' ')[1],10);
+                    ward = $($(data).find('WARD_2012')[0]).text();
+                    neighborhoodCluster = $($(data).find('CLUSTER_')[0]).text();
 
                     callback({
                         'address': address,
