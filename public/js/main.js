@@ -34,7 +34,11 @@ $(function () {
         alertTemplate = _.template('<div id="<%= id %>" class="<%= type %> alert"><p><%= text %></p></div>');
 
     dataDeferred.fail(function () {
-        // deal with AJAX errors
+        $('#address-form').after(alertTemplate({
+            id: 'ajax-fail',
+            type: 'warning',
+            text: "We ran into an unexpected problem downloading data. Try refreshing the page, or <a href='mailto:cmgiven@gmail.com'>send us an email</a> so we can help."
+        }));
     });
 
     var Session = Backbone.Model.extend({
@@ -68,7 +72,7 @@ $(function () {
         }
     });
 
-    $('#address-form').on('submit', function (e) {
+    $('#address-lookup').on('submit', function (e) {
         e.preventDefault();
 
         if ($('#address-validate').attr('disabled')) { return; }
@@ -82,7 +86,6 @@ $(function () {
             if (data) {
                 dataDeferred.done(function () {
                     var locationData = dataForCoordinates({ lat: data.lat, lon: data.lon });
-                    // window.test = locationData;
                     $('#address').val(data.address);
                     renderTemplate(locationData);
 
@@ -98,8 +101,6 @@ $(function () {
                         gaVisitID: window.GUID,
                         versions: { template: window.templateVersion, data: window.dataVersion }
                     });
-
-                    window.test = currentSession;
                 });
             } else {
                 $('#address-form').after(alertTemplate({
@@ -146,7 +147,7 @@ $(function () {
     function renderTemplate(data) {
         data.helpers = templateHelpers;
         data.helpers.feedbackForm = _.template($('#feedback-form-template').html());
-        $('#renderedTemplate').html(template(data)).fadeIn();
+        $('#renderedTemplate').hide().html(template(data)).fadeIn();
 
         var boundaryMap = L.map('boundary-map')
             .setView(data.home, 14)
@@ -225,6 +226,26 @@ $(function () {
                 offset = 26;
             $this.css('height', 'auto');
             $this.css('height', $this.prop("scrollHeight") + offset);
+        });
+
+        $('#name').on('submit', function (e) {
+            e.preventDefault();
+
+            if ($('#name-submit').attr('disabled')) { return; }
+            $('#name-submit').attr('disabled', 'disabled');
+
+            currentSession.save({ 'name': $('#name-field').val() });
+
+            $('#submit-success').remove();
+            setTimeout(function () {
+                $('#name-submit').removeAttr('disabled');
+
+                $('#name-form').after(alertTemplate({
+                    id: 'submit-success',
+                    type: 'success',
+                    text: "Thank you for your feedback. If you have an interest in obtaining the responses and/or raw data, please <a href='mailto:cmgiven@gmail.com'>send us an email</a>."
+                }));
+            }, 800);
         });
 
         $('a').click(function(){

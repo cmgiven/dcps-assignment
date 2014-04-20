@@ -106,7 +106,7 @@
 
             <p class="note">What's the big picture? The Washington Post created an <a href="http://www.washingtonpost.com/wp-srv/special/local/proposed-elementary-school-zones/" target="_blank">interactive map</a> illustrating all of the boundary changes for the entire city.</p>
 
-            <%= helpers.feedbackForm({ id: 'q1' }) %>
+            <%= helpers.feedbackForm({ id: 'boundaries' }) %>
 
         </section>
 
@@ -198,7 +198,7 @@
 
             <p class="note">Do students follow these feeder patterns? We created a <a href="http://cmgiven.github.io/feeder-patterns" target="_blank">visualization tool</a> to explore how students move between schools in the DC system.</p>
 
-            <%= helpers.feedbackForm({ id: 'q2' }) %>
+            <%= helpers.feedbackForm({ id: 'feeder-patterns' }) %>
 
         </section>
 
@@ -227,7 +227,7 @@
                 </ul>
             </div>
             
-            <%= helpers.feedbackForm({ id: 'q3' }) %>
+            <%= helpers.feedbackForm({ id: 'es-choice-sets' }) %>
 
         </section>
 
@@ -271,7 +271,7 @@
 
             <% } %>
             
-            <%= helpers.feedbackForm({ id: 'q4' }) %>
+            <%= helpers.feedbackForm({ id: 'ms-choice-sets' }) %>
 
         </section>
 
@@ -294,7 +294,7 @@
                 <div class="map-wrapper"><div id="closest-middle-schools-map" class="map"></div></div>
             </div>
             
-            <%= helpers.feedbackForm({ id: 'q5' }) %>
+            <%= helpers.feedbackForm({ id: 'ms-proximity' }) %>
 
         </section>
 
@@ -308,7 +308,7 @@
 
             <p class="note">Looking for a way to search for and compare schools? Check out the <a href="http://www.learndc.org/schoolprofiles" target="_blank">LearnDC School Profiles</a> for information about every public school in DC.</p>
             
-            <%= helpers.feedbackForm({ id: 'q6' }) %>
+            <%= helpers.feedbackForm({ id: 'hs-lottery' }) %>
 
         </section>
 
@@ -336,7 +336,19 @@
 
             <p class="note">Where do students in your neighborhood go to school? We built an <a href="http://edu.codefordc.org" target="_blank">interactive map</a> to visualize the patterns of movement between neighborhoods and schools.</p>
             
-            <%= helpers.feedbackForm({ id: 'q7' }) %>
+            <%= helpers.feedbackForm({ id: 'set-asides' }) %>
+
+        </section>
+
+        <section id="name-form">
+
+            <h2>Your Name (Optional)</h2>
+
+            <form id="name">
+                <input type="text" id="name-field" placeholder="Name" />
+
+                <button type="submit" id="name-submit">Submit</button>
+            </form>
 
         </section>
 

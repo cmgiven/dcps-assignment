@@ -121,10 +121,6 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-#renderedTemplate {
-    display: none;
-}
-
 h2 { margin-top: 2em; }
 
 .row:before, .row:after {
@@ -134,7 +130,7 @@ h2 { margin-top: 2em; }
 
 div#wrapper {
     max-width: 720px;
-    padding: 11px;
+    padding: 11px 11px 98px 11px;
     margin: 0 auto;
 }
 
@@ -146,6 +142,10 @@ div.alert {
 
 div.alert.warning {
     background: #c31844;
+}
+
+div.alert.success {
+    background: #5b9f25;
 }
 
 div.alert:before {
@@ -166,6 +166,14 @@ div.alert:before {
 div.alert.warning:before {
     content: "!";
     color: #c31844;
+}
+
+div.alert.success:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+    color: #5b9f25;
+    font-size: 34px;
+    line-height: 48px;
 }
 
 div.alert a {
@@ -202,20 +210,24 @@ p.note:before {
     -moz-osx-font-smoothing: grayscale;
 }
 
-input#address {
+input[type="text"] {
     -webkit-appearance: none;
     outline: none;
     background: #e8eaef;
     border: 2px solid #e8eaef;
     height: 44px;
     width: 100%;
+    padding: 0 11px;
+}
+
+input[type="text"]:focus {
+    background: #fff;
+}
+
+input#address {
     padding: 0 170px 0 11px;
     float: left;
     margin: 0 -170px 16px 0;
-}
-
-input#address:focus {
-    background: #fff;
 }
 
 button#address-validate {
@@ -414,7 +426,20 @@ textarea.comment:focus {
     background: #fff;
 }
 
+button#name-submit {
+    width: 170px;
+    height: 44px;
+    border: none;
+    background: #c31844;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 20px 0;
+}
 
+button#name-submit:disabled {
+    background: #777;
+}
 
 
 
