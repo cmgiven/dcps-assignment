@@ -6,7 +6,7 @@ $(function () {
         dataDeferred = $.when(
             $.get('data/old-boundaries.json', function (data) { oldBoundariesGeoJson = data; }),
             $.get('data/new-boundaries.json', function (data) { newBoundariesGeoJson = data; }),
-            $.get('data/schools.json', function (data) { schoolsCollection = data; })
+            $.get('data/schools.json', function (data) { schoolsCollection = data.schools; window.dataVersion = data.version; })
         ),
         template = _.template($('#template').html()),
         templateHelpers = {},
