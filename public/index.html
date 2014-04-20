@@ -128,6 +128,9 @@
                 <p>The <a href="#boundaries">boundaries proposal</a> would change the elementary school you are zoned for. As a result, we are showing the proposed feeder pattern of this new school boundary.</p>
             <% } else { %>
                 <p>The Advisory Committee has proposed changing your feeder pattern.</p>
+                <% if (oldES.school_code === oldES.old_fp_ms && newES.school_code !== newES.new_fp_ms) { %>
+                    <p>In your current feeder pattern, you are assigned to an education campus that offers Kindergarten through Grade 8. The Advisory Committee has proposed limiting this school to the elementary grades (K–5), which is why your new feeder pattern would assign you to a different middle school.</p>
+                <% } %>
             <% } } %>
 
             <div class="row">
