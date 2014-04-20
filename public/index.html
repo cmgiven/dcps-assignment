@@ -30,7 +30,7 @@
         <p class="lead">A local <a href="http://dme.dc.gov/book/student-assignment-and-school-boundaries-review-process/dc-advisory-committee-student" target="_blank">Advisory Committee</a> is currently reviewing how students are assigned to DC Public Schools. How would the proposed changes affect you and your family?</p>
         <p>We are an independent civic group called <a href="http://codefordc.org" target="_blank">Code for DC</a>. We took the proposals created by the Advisory Committee and made this website to explain what these policies would mean for you. As you explore the proposed changes, tell us what you think. We will collect everyone's responses and share them with the Advisory Committee for consideration.</p>
 
-        <div id="no-js" class="warning">
+        <div id="no-js" class="warning alert">
             <p>This website needs Javascript to be turned on. You can do this in your web browser's settings, or you might try another browser.</p>
         </div>
 
@@ -376,21 +376,32 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
     <script src="js/vendor/lodash.min.js"></script>
+    <script src="js/vendor/backbone-min.js"></script>
     <script src="leaflet-0.7.2/leaflet.js"></script>
     <script src="leaflet-0.7.2/leaflet-pip.min.js"></script>
     <script src="leaflet-0.7.2/leaflet.awesome-markers.js"></script>
     <!--<script src="js/plugins.js"></script>-->
     <script src="js/main.js"></script>
 
-    <script>window.templateVersion = '1.0';</script>
-
     <script>
+        window.templateVersion = '1.0';
+
+        var generateGUID = function () {
+            function _p8(s) {
+                var p = (Math.random().toString(16)+"000000000").substr(2,8);
+                return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p ;
+            }
+            return _p8() + _p8(true) + _p8(true) + _p8();
+        };
+
+        window.GUID = generateGUID();
+
         (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
         function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
         e=o.createElement(i);r=o.getElementsByTagName(i)[0];
         e.src='//www.google-analytics.com/analytics.js';
         r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-        ga('create','UA-XXXXX-X');ga('send','pageview');
+        ga('create','UA-48346038-2','ourdcps.org');ga('set','&uid',window.GUID);ga('send','pageview');
     </script>
     </body>
 </html>

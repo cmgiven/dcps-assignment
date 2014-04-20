@@ -53,7 +53,8 @@ var SessionSchema = new mongoose.Schema({
     newBoundary: String,
     responses: [{ key: String, value: Number, comment: String }],
     name: String,
-    gaVisitorID: String
+    gaVisitID: String,
+    versions: { template: String, data: String }
 });
 
 var Session = mongoose.model('Session', SessionSchema);
@@ -76,7 +77,8 @@ app.post('/api/sessions', function (req, res) {
         newBoundary: req.body.newBoundary,
         responses: req.body.responses,
         name: req.body.name,
-        gaVisitorID: req.body.gaVisitorID
+        gaVisitID: req.body.gaVisitID,
+        versions: req.body.versions
     });
 
     return session.save(function (err) {
@@ -98,7 +100,8 @@ app.put('/api/sessions/:id', function (req, res) {
         session.newBoundary = req.body.newBoundary;
         session.responses = req.body.responses;
         session.name = req.body.name;
-        session.gaVisitorID = req.body.gaVisitorID;
+        session.gaVisitID = req.body.gaVisitID;
+        session.versions = req.body.versions;
         
         return session.save(function (err) {
             if (err) { console.log(err); }

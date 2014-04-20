@@ -1,6 +1,7 @@
 $(function () {
 
-    var oldBoundariesGeoJson,
+    var currentSession,
+        oldBoundariesGeoJson,
         newBoundariesGeoJson,
         schoolsCollection,
         dataDeferred = $.when(
@@ -29,35 +30,83 @@ $(function () {
         blue = '#1f92c2',
         orange = '#e03f24',
         green = '#5b9f25',
-        red = '#c31844';
-
-    dataDeferred.done(function () {
-        // // var locationData = dataForCoordinates({ lat: 38.911124, lon: -77.036799 });
-        // var locationData = dataForCoordinates({ lat: 38.927962, lon: -77.037526 });
-        // // var locationData = dataForCoordinates({ lat: 38.952096, lon: -77.068123 });
-        // // var locationData = dataForCoordinates({ lat: 38.870741, lon: -76.982017 });
-
-        // window.test = locationData;
-
-        // renderTemplate(locationData);
-    });
+        red = '#c31844',
+        alertTemplate = _.template('<div id="<%= id %>" class="<%= type %> alert"><p><%= text %></p></div>');
 
     dataDeferred.fail(function () {
         // deal with AJAX errors
     });
 
+    var Session = Backbone.Model.extend({
+        urlRoot: '/api/sessions',
+        idAttribute: '_id',
+        defaults: {
+            address: '',
+            latitude: 0.0,
+            longitude: 0.0,
+            ward: '',
+            cluster: '',
+            oldBoundary: '',
+            newBoundary: '',
+            responses: [],
+            name: '',
+            gaVisitID: '',
+            versions: {}
+        },
+        saveFeedback: function (question, args) {
+            var responses = this.get('responses');
+
+            if (_.where(responses, { 'key': question }).length === 0) {
+                responses.push({ 'key': question, 'value': 0, 'comment': ''});
+            }
+
+            _.each(args, function (v, k) {
+                _.where(responses, { 'key': question })[0][k] = v;
+            });
+
+            this.save({ responses: responses });
+        }
+    });
+
     $('#address-form').on('submit', function (e) {
         e.preventDefault();
+
+        if ($('#address-validate').attr('disabled')) { return; }
+        $('#address-validate').attr('disabled', 'disabled');
+
+        $('#bad-address').remove();
+        $('#renderedTemplate').html('');
+
         lookupAddress($('#address').val(), function (data) {
+            $('#address-validate').removeAttr('disabled');
             if (data) {
                 dataDeferred.done(function () {
                     var locationData = dataForCoordinates({ lat: data.lat, lon: data.lon });
-                    window.test = locationData;
+                    // window.test = locationData;
                     $('#address').val(data.address);
                     renderTemplate(locationData);
+
+                    currentSession = new Session();
+                    currentSession.save({
+                        address: data.address,
+                        latitude: data.lat,
+                        longitude: data.lon,
+                        ward: data.ward,
+                        cluster: data.nc,
+                        oldBoundary: locationData.oldBoundary.feature.properties.SCHOOLNAME,
+                        newBoundary: locationData.newBoundary.feature.properties.SCHOOLNAME,
+                        gaVisitID: window.GUID,
+                        versions: { template: window.templateVersion, data: window.dataVersion }
+                    });
+
+                    window.test = currentSession;
                 });
             } else {
-                alert('Problem with the address entered');
+                $('#address-form').after(alertTemplate({
+                    id: 'bad-address',
+                    type: 'warning',
+                    text: "We couldn't find a match for your address. Please check that everything is correct, or <a href='mailto:cmgiven@gmail.com'>send us an email</a> so we can help."
+                }));
             }
         });
     });
@@ -155,8 +204,20 @@ $(function () {
             .bindPopup('<b>' + data.closestMiddleSchools[1].school_name + '</b><br />' + data.closestMiddleSchools[1].address)
             .addTo(closestMiddleSchoolsMap);
 
-        $('ul.graphic-likert input').change(function () {
-            $('#' + $(this).attr('name') + '-comment').fadeIn();
+        $('ul.graphic-likert input').on('change', function () {
+            var question = $(this).attr('name'),
+                value = $(this).val();
+
+            currentSession.saveFeedback(question, { 'value': value });
+
+            $('#' + question + '-comment').fadeIn();
+        });
+
+        $('textarea.comment').on('blur', function () {
+            var question = this.id.split('-')[0],
+                value = $(this).val();
+            
+            currentSession.saveFeedback(question, { 'comment': value });
         });
 
         $('textarea.comment').on('input', function () {

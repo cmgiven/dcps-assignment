@@ -138,18 +138,19 @@ div#wrapper {
     margin: 0 auto;
 }
 
-div.warning {
-    background: #c31844;
+div.alert {
     color: #fff;
     padding: 11px 11px 11px 88px;
     position: relative;
 }
 
-div.warning:before {
-    content: "!";
+div.alert.warning {
+    background: #c31844;
+}
+
+div.alert:before {
     display: block;
     background: #fff;
-    color: #c31844;
     width: 44px; height: 44px;
     position: absolute;
     left: 22px; top: 50%;
@@ -160,6 +161,15 @@ div.warning:before {
     text-align: center;
     font-size: 44px;
     line-height: 44px;
+}
+
+div.alert.warning:before {
+    content: "!";
+    color: #c31844;
+}
+
+div.alert a {
+    color: #fff;
 }
 
 p:not(.lead) { max-width: 600px; }
@@ -218,6 +228,10 @@ button#address-validate {
     font-size: 18px;
     float: left;
     margin: 0 0 16px 0;
+}
+
+button#address-validate:disabled {
+    background: #777;
 }
 
 div.map-wrapper {
