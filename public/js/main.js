@@ -204,8 +204,11 @@ $(function () {
 
         function choiceSet() {
             var esSchools = _.map(newES.choice_set_schools, function (code) {
-                return schoolForCode(code);
-            });
+                    return schoolForCode(code);
+                }),
+                msSchools = newES.ms_choice_set ? _.map(newES.ms_choice_set, function (code) {
+                    return schoolForCode(code);
+                }) : null;
 
             return {
                 'es': {
@@ -213,7 +216,7 @@ $(function () {
                     'schools': esSchools
                 },
                 'ms': {
-                    'schools': []
+                    'schools': msSchools
                 }
             };
         }
@@ -258,6 +261,7 @@ $(function () {
         }
 
         function schoolForCode(code) {
+            if (isNaN(code)) { return code; }
             return _.where(schoolsCollection, { 'school_code': code })[0];
         }
 

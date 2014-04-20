@@ -231,17 +231,49 @@
 
         </section>
 
-        <!-- <section id="ms-choice-sets">
+        <section id="ms-choice-sets">
 
             <h2>Middle School Choice Sets</h2>
 
             <p>Similar to <a href="#es-choice-sets">elementary school choice sets</a>, the Advisory Committee is considering choice sets for middle schools. Students would be guaranteed access to one of the schools in the choice set but not to a specific school.</p>
 
             <p>Middle school choice sets would likely be paired with a plan to give every middle school a special focus, such as two-language instruction or an emphasis on STEM (Science, Technology, Engineering, Math) programs. Which schools would focus on which topics has not been proposed yet.</p>
+
+            <% if (choiceSet.ms.schools) { %>
+
+            <% if (choiceSet.ms.schools.length === 1) { %>
+
+            <p>Your proposed middle school choice set lists only a single school, which is a planned new middle school. This is not an error, and it reflects what the Advisory Committee's documents show.</p>
+
+            <% } %>
+
+            <div class="schools-list">
+                <span class="title">Proposed Choice Set</span>
+                <ul>
+                    <% _.forEach(choiceSet.ms.schools, function (school) { %>
+                        <li><% if (_.isObject(school)) { %>
+                                <%= helpers.learndcLink(school) %><% if(school === newES) { %>*<% } %>
+                            <% } else if (school === 'NEW') { %>
+                                New School
+                            <% } else if (school === 'PCS') { %>
+                                Charter School
+                            <% } else { %>
+                                Missing
+                            <% } %>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+
+            <% } else { %>
+
+            <p>Your school boundary is zoned for an education campus that offers Kindergarten through Grade 8. The Advisory Committee has not provided a separate middle school choice set for your boundary.</p>
+
+            <% } %>
             
             <%= helpers.feedbackForm({ id: 'q4' }) %>
 
-        </section> -->
+        </section>
 
         <section id="ms-proximity">
 
