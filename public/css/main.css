@@ -472,7 +472,41 @@ button#name-submit:disabled {
     background: #777;
 }
 
+@media only screen and (max-width: 520px) {
+    #logo-img { max-width: 100%; }
+    #sponsor-img { display: none; }
 
+    input#address {
+        padding-right: 11px;
+        margin-right: 0;
+    }
+
+    button#address-validate {
+        margin: -8px 0 16px 0;
+        float: right;
+    }
+
+    div.map-wrapper { width: 100%; margin-bottom: 14px ;}
+    .map-description {
+        width: 100%;
+        padding: 0;
+    }
+
+    div.schools-list { width: 100%; }
+    div.schools-list ul { margin-top: 4px; }
+
+    ul.graphic-likert:not(#foo) { height: 48px; }
+
+    ul.graphic-likert:not(#foo) li > input[type='radio'] + label {
+        height: 48px;
+        line-height: 48px;
+    }
+
+    ul.graphic-likert:not(#foo) li > input[type='radio'] + label:before {
+        font-size: 33px;
+    }
+    
+}
 
 
 
