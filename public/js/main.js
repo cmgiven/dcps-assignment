@@ -2,10 +2,12 @@ $(function () {
 
     var currentSession,
         oldBoundariesGeoJson,
+        msBoundariesGeoJson,
         newBoundariesGeoJson,
         schoolsCollection,
         dataDeferred = $.when(
             $.get('data/old-boundaries.json', function (data) { oldBoundariesGeoJson = data; }),
+            $.get('data/ms-boundaries.json', function (data) { msBoundariesGeoJson = data; }),
             $.get('data/new-boundaries.json', function (data) { newBoundariesGeoJson = data; }),
             $.get('data/schools.json', function (data) { schoolsCollection = data.schools; window.dataVersion = data.version; })
         ),
@@ -86,6 +88,7 @@ $(function () {
             if (data) {
                 dataDeferred.done(function () {
                     var locationData = dataForCoordinates({ lat: data.lat, lon: data.lon });
+                    window.test = locationData;
                     $('#address').val(data.address);
                     renderTemplate(locationData);
 
@@ -262,10 +265,13 @@ $(function () {
         coords = L.latLng(coords);
 
         var oldBoundariesGJLayer = L.geoJson(oldBoundariesGeoJson),
+            msBoundariesGJLayer = L.geoJson(msBoundariesGeoJson),
             newBoundariesGJLayer = L.geoJson(newBoundariesGeoJson),
             oldBoundary = leafletPip.pointInLayer(coords, oldBoundariesGJLayer)[0],
+            msBoundary = leafletPip.pointInLayer(coords, msBoundariesGJLayer)[0],
             newBoundary = leafletPip.pointInLayer(coords, newBoundariesGJLayer)[0],
             oldEScode = oldBoundary.feature.properties.SCHOOLCODE,
+            oldMScode = msBoundary.feature.properties.SCHOOLCODE,
             newEScode = newBoundary.feature.properties.SCHOOLCODE,
             oldES = oldEScode > 0 ? schoolForCode(oldEScode) : 'CLOSED',
             newES = schoolForCode(newEScode),
@@ -342,6 +348,14 @@ $(function () {
             };
         }
 
+        function boundaryMS() {
+            var fpMS = _.isObject(feederPattern.old.ms) ? feederPattern.old.ms.school_code : null;
+
+            if (oldMScode > 0 && oldMScode !== fpMS) { return schoolForCode(oldMScode); }
+
+            return false;
+        }
+
         function schoolForCode(code) {
             if (isNaN(code)) { return code; }
             return _.where(schoolsCollection, { 'school_code': code })[0];
@@ -355,6 +369,7 @@ $(function () {
             'oldES': oldES,
             'newES': newES,
             'feederPattern': feederPattern,
+            'boundaryMS': boundaryMS(),
             'choiceSet': choiceSet(),
             'closestMiddleSchools': nearestSchools(2, function(school) {
                 return _.intersection(school.grades, ['06', '07', '08']).length === 3;
