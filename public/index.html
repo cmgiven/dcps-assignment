@@ -67,7 +67,7 @@
 
             <% if (boundaryChanged) { if (oldES === 'CLOSED') { %>
 
-                <p>The school you are currently zoned for, <%= oldBoundary.feature.properties.SCHOOLNAME %> ES, has been closed, and we are missing information about the school to which you are currently assigned. If you can help us fill in gaps, please consider <a href="mailto:cmgiven@gmail.com">sending us an email</a>. The proposed school boundaries would assign you to <%= helpers.learndcLink(newES) %>.</p>
+                <p>The school you are currently zoned for, <%= oldBoundary.feature.properties.SCHOOLNAME %> ES, has been closed, and we are missing information about the school to which you are currently assigned. If you can help us fill in gaps, please consider <a href="mailto:chris@ourdcps.org">sending us an email</a>. The proposed school boundaries would assign you to <%= helpers.learndcLink(newES) %>.</p>
 
                 <% } else { %>
 
@@ -128,7 +128,7 @@
             <% } else { %>
 
             <% if (oldES.old_fp_ms === null || oldES.old_fp_hs === null) { %>
-                <p>We're missing information about your current feeder pattern. If you can help us fill in gaps, please consider <a href="mailto:cmgiven@gmail.com">sending us an email</a>.</p>
+                <p>We're missing information about your current feeder pattern. If you can help us fill in gaps, please consider <a href="mailto:chris@ourdcps.org">sending us an email</a>.</p>
             <% } %>
 
             <% if (boundaryChanged) { %>
