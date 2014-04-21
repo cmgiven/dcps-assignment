@@ -132,7 +132,7 @@ div#wrapper {
     padding-bottom: 98px;
 }
 
-section, header {
+section, header, div.alert {
     max-width: 800px;
     padding: 0 11px;
     margin: 0 auto;
