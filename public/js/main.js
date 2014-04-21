@@ -37,7 +37,7 @@ $(function () {
         $('#address-form').after(alertTemplate({
             id: 'ajax-fail',
             type: 'warning',
-            text: "We ran into an unexpected problem downloading data. Try refreshing the page, or <a href='mailto:chris@ourdcps.org'>send us an email</a> so we can help."
+            text: "We ran into an unexpected problem downloading data. Try refreshing the page, or <a href='mailto:chris@ourdcschools.org'>send us an email</a> so we can help."
         }));
     });
 
@@ -106,7 +106,7 @@ $(function () {
                 $('#address-form').after(alertTemplate({
                     id: 'bad-address',
                     type: 'warning',
-                    text: "We couldn't find a match for your address. Please check that everything is correct, or <a href='mailto:chris@ourdcps.org'>send us an email</a> so we can help."
+                    text: "We couldn't find a match for your address. Please check that everything is correct, or <a href='mailto:chris@ourdcschools.org'>send us an email</a> so we can help."
                 }));
             }
         });
@@ -243,7 +243,7 @@ $(function () {
                 $('#name-form').after(alertTemplate({
                     id: 'submit-success',
                     type: 'success',
-                    text: "Thank you for your feedback. If you have an interest in obtaining the responses and/or raw data, please <a href='mailto:chris@ourdcps.org'>send us an email</a>."
+                    text: "Thank you for your feedback. If you have an interest in obtaining the responses and/or raw data, please <a href='mailto:chris@ourdcschools.org'>send us an email</a>."
                 }));
             }, 800);
         });

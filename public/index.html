@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Student Assignment Unpacked</title>
+        <title>Our DC Schools: Student Assignment Unpacked</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,7 +26,7 @@
     <div id="wrapper">
 
         <header>
-            <h1><img src="img/logo.png" id="logo-img" alt="Student Assignment Unpacked" /></h1>
+            <h1><img src="img/logo.png" id="logo-img" alt="Our DC Schools: Student Assignment Unpacked" /></h1>
             <a href="http://codefordc.org" target="_blank"><img src="img/c4dc.png" id="sponsor-img" alt="An initiative of Code of DC" /></a>
         </header>
 
@@ -67,7 +67,7 @@
 
             <% if (boundaryChanged) { if (oldES === 'CLOSED') { %>
 
-                <p>The school you are currently zoned for, <%= oldBoundary.feature.properties.SCHOOLNAME %> ES, has been closed, and we are missing information about the school to which you are currently assigned. If you can help us fill in gaps, please consider <a href="mailto:chris@ourdcps.org">sending us an email</a>. The proposed school boundaries would assign you to <%= helpers.learndcLink(newES) %>.</p>
+                <p>The school you are currently zoned for, <%= oldBoundary.feature.properties.SCHOOLNAME %> ES, has been closed, and we are missing information about the school to which you are currently assigned. If you can help us fill in gaps, please consider <a href="mailto:chris@ourdcschools.org">sending us an email</a>. The proposed school boundaries would assign you to <%= helpers.learndcLink(newES) %>.</p>
 
                 <% } else { %>
 
@@ -128,7 +128,7 @@
             <% } else { %>
 
             <% if (oldES.old_fp_ms === null || oldES.old_fp_hs === null) { %>
-                <p>We're missing information about your current feeder pattern. If you can help us fill in gaps, please consider <a href="mailto:chris@ourdcps.org">sending us an email</a>.</p>
+                <p>We're missing information about your current feeder pattern. If you can help us fill in gaps, please consider <a href="mailto:chris@ourdcschools.org">sending us an email</a>.</p>
             <% } %>
 
             <% if (boundaryChanged) { %>
@@ -420,7 +420,7 @@
         e=o.createElement(i);r=o.getElementsByTagName(i)[0];
         e.src='//www.google-analytics.com/analytics.js';
         r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-        ga('create','UA-48346038-2','ourdcps.org');ga('set','&uid',window.GUID);ga('send','pageview');
+        ga('create','UA-48346038-2','ourdcschools.org');ga('set','&uid',window.GUID);ga('send','pageview');
     </script>
     </body>
 </html>
