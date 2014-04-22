@@ -241,6 +241,10 @@ p.note:before {
     -moz-osx-font-smoothing: grayscale;
 }
 
+p.note.policy-example:before {
+    content: "\f0f6";
+}
+
 input[type="text"] {
     -webkit-appearance: none;
     outline: none;
