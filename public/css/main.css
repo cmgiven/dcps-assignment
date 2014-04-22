@@ -128,9 +128,13 @@ h2 { margin-top: 2em; }
     display: table; }
 .row:after { clear: both; }
 
-div#wrapper {
-    padding-bottom: 98px;
+.two-up {
+    width: 50%;
+    float: left;
 }
+
+.two-thirds { width: 66.667%; }
+.one-third { width: 33.333%; }
 
 section, header, div.alert {
     max-width: 800px;
@@ -161,8 +165,21 @@ div.inverse {
     padding: 22px 0;
 }
 
-div.inverse a {
+footer {
+    margin-top: 98px;
+    background: #777;
     color: #fff;
+    padding: 22px 0;
+    font-size: 14px;
+}
+
+div.inverse a, footer a {
+    color: #fff;
+}
+
+footer ul {
+    padding: 0;
+    list-style-type: none;
 }
 
 div.alert {
@@ -479,6 +496,9 @@ button#name-submit:disabled {
 @media only screen and (max-width: 520px) {
     #logo-img { max-width: 100%; }
     #sponsor-img { display: none; }
+
+
+    .two-up { width: 100%; }
 
     input#address {
         padding-right: 11px;
