@@ -34,6 +34,7 @@
             <section id="intro">
                 <p class="lead">A local <a href="http://dme.dc.gov/book/student-assignment-and-school-boundaries-review-process/dc-advisory-committee-student" target="_blank">Advisory Committee</a> is currently reviewing how students are assigned to DC Public Schools. How would the proposed changes affect you and your family?</p>
                 <p>We are an independent civic group called <a href="http://codefordc.org" target="_blank">Code for DC</a>. We took the proposals created by the Advisory Committee and made this website to explain what these policies would mean for you. As you explore the proposed changes, tell us what you think. We will collect everyone's responses and share them with the Advisory Committee for consideration.</p>
+                <p>To learn more about the proposals and upcoming community meetings, visit the Deputy Mayor for Education's website at <a href="http://dme.dc.gov/boundaries" target="_blank">dme.dc.gov/boundaries</a>.</p>
             </section>
         </div>
 
@@ -67,7 +68,7 @@
 
             <% if (boundaryChanged) { if (oldES === 'CLOSED') { %>
 
-                <p>The school you are currently zoned for, <%= oldBoundary.feature.properties.SCHOOLNAME %> ES, has been closed, and we are missing information about the school to which you are currently assigned. If you can help us fill in gaps, please consider <a href="mailto:chris@ourdcschools.org">sending us an email</a>. The proposed school boundaries would assign you to <%= helpers.learndcLink(newES) %>.</p>
+                <p>The school you are currently zoned for, <%= oldBoundary.feature.properties.SCHOOLNAME %> ES, has been closed, and we are missing information about the school to which you are currently assigned. You can look up the schools assigned to your address using DCPS's <a href="http://dcatlas.dcgis.dc.gov/schools/" target="_blank">EBIS</a> tool. The proposed school boundaries would assign you to <%= helpers.learndcLink(newES) %>.</p>
 
                 <% } else { %>
 
@@ -139,6 +140,10 @@
                     <p>In your current feeder pattern, you are assigned to an education campus that offers Kindergarten through Grade 8. The Advisory Committee has proposed limiting this school to the elementary grades (K–5), which is why your new feeder pattern would assign you to a different middle school.</p>
                 <% } %>
             <% } } %>
+
+            <% if (boundaryMS) { %>
+                <p>In addition to the middle school specified by your feeder pattern, your address is currently zoned for an additional middle school, <%= helpers.learndcLink(boundaryMS) %>. This is a result of inconsistencies between the elementary and middle school boundaries. In the Advisory Committee's proposal, middle school boundaries will match those of their feeder elementary schools, which means that each address will only be zoned for a single school.</p>
+            <% } %>
 
             <div class="row">
                 <% if (oldES.old_fp_ms !== newES.new_fp_ms || oldES.old_fp_hs !== newES.new_fp_hs) { %>
@@ -395,7 +400,7 @@
     <script src="js/main.js"></script>
 
     <script>
-        window.templateVersion = '1.0';
+        window.templateVersion = '1.1';
 
         var generateGUID = function () {
             function _p8(s) {
