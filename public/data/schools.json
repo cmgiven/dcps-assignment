@@ -1,4 +1,3 @@
-{"version":"1.0","schools":
 [
   {
     "school_code":"249",
@@ -698,7 +697,7 @@
     "new_fp_ms":"433",
     "new_fp_hs":"457",
     "old_fp_ms":"433",
-    "old_fp_hs":"467",
+    "old_fp_hs":"457",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Priority"
   },
@@ -725,7 +724,7 @@
     "new_fp_ms":"433",
     "new_fp_hs":"457",
     "old_fp_ms":"433",
-    "old_fp_hs":"467",
+    "old_fp_hs":"457",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Rising"
   },
@@ -752,7 +751,7 @@
     "new_fp_ms":"433",
     "new_fp_hs":"457",
     "old_fp_ms":"407",
-    "old_fp_hs":null,
+    "old_fp_hs":"457",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Focus"
   },
@@ -779,7 +778,7 @@
     "new_fp_ms":"435",
     "new_fp_hs":"467",
     "old_fp_ms":"335",
-    "old_fp_hs":null,
+    "old_fp_hs":"467",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Developing"
   },
@@ -806,7 +805,7 @@
     "new_fp_ms":"404",
     "new_fp_hs":"457",
     "old_fp_ms":"404",
-    "old_fp_hs":null,
+    "old_fp_hs":"457",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Priority"
   },
@@ -858,8 +857,8 @@
     "building_capacity":412,
     "new_fp_ms":"428",
     "new_fp_hs":"457",
-    "old_fp_ms":"407",
-    "old_fp_hs":null,
+    "old_fp_ms":"428",
+    "old_fp_hs":"457",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Rising"
   },
@@ -886,7 +885,7 @@
     "new_fp_ms":"407",
     "new_fp_hs":"457",
     "old_fp_ms":"407",
-    "old_fp_hs":null,
+    "old_fp_hs":"457",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Focus"
   },
@@ -913,7 +912,7 @@
     "new_fp_ms":"428",
     "new_fp_hs":"457",
     "old_fp_ms":"428",
-    "old_fp_hs":"467",
+    "old_fp_hs":"457",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Reward"
   },
@@ -937,8 +936,8 @@
     "building_capacity":400,
     "new_fp_ms":"360",
     "new_fp_hs":"457",
-    "old_fp_ms":null,
-    "old_fp_hs":null,
+    "old_fp_ms":"360",
+    "old_fp_hs":"457",
     "grades":["01","02","03","04","05","06","KG","PK","PS"],
     "esea":"Rising"
   },
@@ -965,7 +964,7 @@
     "new_fp_ms":"407",
     "new_fp_hs":"457",
     "old_fp_ms":"407",
-    "old_fp_hs":null,
+    "old_fp_hs":"457",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Reward"
   },
@@ -992,7 +991,7 @@
     "new_fp_ms":"407",
     "new_fp_hs":"457",
     "old_fp_ms":"407",
-    "old_fp_hs":null,
+    "old_fp_hs":"457",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Focus"
   },
@@ -1019,7 +1018,7 @@
     "new_fp_ms":"428",
     "new_fp_hs":"457",
     "old_fp_ms":"428",
-    "old_fp_hs":"467",
+    "old_fp_hs":"457",
     "grades":["KG","PK","PS"]
   },
   {
@@ -1045,7 +1044,7 @@
     "new_fp_ms":"428",
     "new_fp_hs":"457",
     "old_fp_ms":"428",
-    "old_fp_hs":"467",
+    "old_fp_hs":"457",
     "grades":["01","02","03","04","05"],
     "esea":"Rising"
   },
@@ -1072,7 +1071,7 @@
     "new_fp_ms":"346",
     "new_fp_hs":"467",
     "old_fp_ms":"262",
-    "old_fp_hs":null,
+    "old_fp_hs":"467",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Priority"
   },
@@ -1099,7 +1098,7 @@
     "new_fp_ms":"346",
     "new_fp_hs":"467",
     "old_fp_ms":"290",
-    "old_fp_hs":null,
+    "old_fp_hs":"467",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Developing"
   },
@@ -1125,6 +1124,8 @@
     "building_capacity":530,
     "new_fp_ms":"435",
     "new_fp_hs":"467",
+    "old_fp_ms":"435",
+    "old_fp_hs":"467",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Rising"
   },
@@ -1151,7 +1152,7 @@
     "new_fp_ms":"346",
     "new_fp_hs":"467",
     "old_fp_ms":"220",
-    "old_fp_hs":null,
+    "old_fp_hs":"467",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Rising"
   },
@@ -1178,7 +1179,7 @@
     "new_fp_ms":"346",
     "new_fp_hs":"467",
     "old_fp_ms":"346",
-    "old_fp_hs":null,
+    "old_fp_hs":"455",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Developing"
   },
@@ -1204,6 +1205,7 @@
     "building_capacity":400,
     "new_fp_ms":"NEW",
     "new_fp_hs":"455",
+    "old_fp_ms":"264",
     "old_fp_hs":"455",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Priority"
@@ -1257,6 +1259,7 @@
     "building_capacity":450,
     "new_fp_ms":"NEW",
     "new_fp_hs":"455",
+    "old_fp_ms":"324",
     "old_fp_hs":"455",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Focus"
@@ -1284,7 +1287,7 @@
     "new_fp_ms":"NEW",
     "new_fp_hs":"455",
     "old_fp_ms":"338",
-    "old_fp_hs":null,
+    "old_fp_hs":"455",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Focus"
   },
@@ -1338,7 +1341,7 @@
     "new_fp_ms":"NEW",
     "new_fp_hs":"455",
     "old_fp_ms":"213",
-    "old_fp_hs":null,
+    "old_fp_hs":"455",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Focus"
   },
@@ -1365,7 +1368,7 @@
     "new_fp_ms":"NEW",
     "new_fp_hs":"459",
     "old_fp_ms":"327",
-    "old_fp_hs":null,
+    "old_fp_hs":"459",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Rising"
   },
@@ -1392,7 +1395,7 @@
     "new_fp_ms":"336",
     "new_fp_hs":"459",
     "old_fp_ms":"336",
-    "old_fp_hs":null,
+    "old_fp_hs":"459",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Rising"
   },
@@ -1419,7 +1422,7 @@
     "new_fp_ms":"NEW",
     "new_fp_hs":"459",
     "old_fp_ms":"442",
-    "old_fp_hs":"442",
+    "old_fp_hs":"454",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Reward"
   },
@@ -1445,8 +1448,8 @@
     "building_capacity":380,
     "new_fp_ms":"NEW",
     "new_fp_hs":"459",
-    "old_fp_ms":null,
-    "old_fp_hs":"459",
+    "old_fp_ms":"442",
+    "old_fp_hs":"454",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Rising"
   },
@@ -1473,7 +1476,7 @@
     "new_fp_ms":"302",
     "new_fp_hs":"459",
     "old_fp_ms":"302",
-    "old_fp_hs":null,
+    "old_fp_hs":"454",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Rising"
   },
@@ -1500,7 +1503,7 @@
     "new_fp_ms":"442",
     "new_fp_hs":"454",
     "old_fp_ms":"442",
-    "old_fp_hs":"442",
+    "old_fp_hs":"454",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Rising"
   },
@@ -1526,7 +1529,7 @@
     "building_capacity":470,
     "new_fp_ms":"NEW",
     "new_fp_hs":"454",
-    "old_fp_ms":null,
+    "old_fp_ms":"454",
     "old_fp_hs":"454",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Rising"
@@ -1581,7 +1584,7 @@
     "new_fp_ms":"442",
     "new_fp_hs":"454",
     "old_fp_ms":"442",
-    "old_fp_hs":"442",
+    "old_fp_hs":"454",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Focus"
   },
@@ -1634,8 +1637,8 @@
     "building_capacity":325,
     "new_fp_ms":"405",
     "new_fp_hs":"463",
-    "old_fp_ms":null,
-    "old_fp_hs":null,
+    "old_fp_ms":"405",
+    "old_fp_hs":"463",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Rising"
   },
@@ -1661,7 +1664,7 @@
     "building_capacity":324,
     "new_fp_ms":"292",
     "new_fp_hs":"454",
-    "old_fp_ms":null,
+    "old_fp_ms":"292",
     "old_fp_hs":"463",
     "grades":["01","02","03","04","05","06","07","08","KG","PK","PS"],
     "esea":"Reward"
@@ -1877,7 +1880,7 @@
     "building_capacity":150,
     "new_fp_ms":"NEW",
     "new_fp_hs":"454",
-    "old_fp_ms":null,
+    "old_fp_ms":"454",
     "old_fp_hs":"454",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Reward"
@@ -1931,7 +1934,7 @@
     "building_capacity":320,
     "new_fp_ms":"NEW",
     "new_fp_hs":"454",
-    "old_fp_ms":null,
+    "old_fp_ms":"454",
     "old_fp_hs":"454",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Rising"
@@ -1958,7 +1961,7 @@
     "building_capacity":356,
     "new_fp_ms":"NEW",
     "new_fp_hs":"454",
-    "old_fp_ms":null,
+    "old_fp_ms":"454",
     "old_fp_hs":"454",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Focus"
@@ -1985,7 +1988,7 @@
     "building_capacity":325,
     "new_fp_ms":"NEW",
     "new_fp_hs":"454",
-    "old_fp_ms":null,
+    "old_fp_ms":"454",
     "old_fp_hs":"454",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Focus"
@@ -2013,7 +2016,7 @@
     "new_fp_ms":"NEW",
     "new_fp_hs":"454",
     "old_fp_ms":"433",
-    "old_fp_hs":"467",
+    "old_fp_hs":"457",
     "grades":["01","02","03","04","05","KG","PK","PS"],
     "esea":"Rising"
   },
@@ -2710,4 +2713,3 @@
     "phone":"202-544-2646"
   }
 ]
-}
