@@ -372,7 +372,7 @@ $(function () {
             'boundaryMS': boundaryMS(),
             'choiceSet': choiceSet(),
             'closestMiddleSchools': nearestSchools(2, function(school) {
-                if (school.school_type === 'Regular school' && school.charter_status === false) {
+                if (school.school_type !== 'Alternative Education School' && school.charter_status === false) {
                     return _.intersection(school.grades, ['06', '07', '08']).length === 3;
                 }
 
