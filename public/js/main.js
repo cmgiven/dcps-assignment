@@ -3,11 +3,13 @@ $(function () {
     var currentSession,
         oldBoundariesGeoJson,
         msBoundariesGeoJson,
+        hsBoundariesGeoJson,
         newBoundariesGeoJson,
         schoolsCollection,
         dataDeferred = $.when(
             $.get('data/old-boundaries.json', function (data) { oldBoundariesGeoJson = data; }),
             $.get('data/ms-boundaries.json', function (data) { msBoundariesGeoJson = data; }),
+            $.get('data/hs-boundaries.json', function (data) { hsBoundariesGeoJson = data; }),
             $.get('data/new-boundaries.json', function (data) { newBoundariesGeoJson = data; }),
             $.get('data/schools.json', function (data) { schoolsCollection = data.schools; window.dataVersion = data.version; })
         ),
@@ -266,12 +268,15 @@ $(function () {
 
         var oldBoundariesGJLayer = L.geoJson(oldBoundariesGeoJson),
             msBoundariesGJLayer = L.geoJson(msBoundariesGeoJson),
+            hsBoundariesGJLayer = L.geoJson(hsBoundariesGeoJson),
             newBoundariesGJLayer = L.geoJson(newBoundariesGeoJson),
             oldBoundary = leafletPip.pointInLayer(coords, oldBoundariesGJLayer)[0],
             msBoundary = leafletPip.pointInLayer(coords, msBoundariesGJLayer)[0],
+            hsBoundary = leafletPip.pointInLayer(coords, hsBoundariesGJLayer)[0],
             newBoundary = leafletPip.pointInLayer(coords, newBoundariesGJLayer)[0],
             oldEScode = oldBoundary.feature.properties.SCHOOLCODE,
             oldMScode = msBoundary.feature.properties.SCHOOLCODE,
+            oldHScode = hsBoundary.feature.properties.SCHOOLCODE,
             newEScode = newBoundary.feature.properties.SCHOOLCODE,
             oldES = oldEScode > 0 ? schoolForCode(oldEScode) : 'CLOSED',
             newES = schoolForCode(newEScode),
@@ -356,6 +361,14 @@ $(function () {
             return false;
         }
 
+        function boundaryHS() {
+            var fpHS = _.isObject(feederPattern.old.hs) ? feederPattern.old.hs.school_code : null;
+
+            if (oldHScode > 0 && oldHScode !== fpHS) { return schoolForCode(oldHScode); }
+
+            return false;
+        }
+
         function schoolForCode(code) {
             if (isNaN(code)) { return code; }
             return _.where(schoolsCollection, { 'school_code': code })[0];
@@ -370,6 +383,7 @@ $(function () {
             'newES': newES,
             'feederPattern': feederPattern,
             'boundaryMS': boundaryMS(),
+            'boundaryHS': boundaryHS(),
             'choiceSet': choiceSet(),
             'closestMiddleSchools': nearestSchools(2, function(school) {
                 if (school.school_type !== 'Alternative Education School' && school.charter_status === false) {

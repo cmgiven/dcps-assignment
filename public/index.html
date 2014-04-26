@@ -92,19 +92,25 @@
 
             <% if (boundaryChanged) { if (oldES === 'CLOSED') { %>
 
-                <p>The school you are currently zoned for, <%= oldBoundary.feature.properties.SCHOOLNAME %> ES, has been closed, and we are missing information about the school to which you are currently assigned. You can look up the schools assigned to your address using DCPS's <a href="http://dcatlas.dcgis.dc.gov/schools/" target="_blank">EBIS</a> tool. The proposed school boundaries would assign you to <%= helpers.learndcLink(newES) %>.</p>
+                <p>The school you are currently zoned for, <%= oldBoundary.feature.properties.SCHOOLNAME %> ES, has been closed, and we are missing information about the school to which your address is currently assigned. You can look up the schools zoned for your address using DCPS's <a href="http://dcatlas.dcgis.dc.gov/schools/" target="_blank">EBIS</a> tool. The proposed school boundaries would zone you for <%= helpers.learndcLink(newES) %>.</p>
 
                 <% } else { %>
 
-                <p>Under the new boundary proposal, your address would be assigned to a different school boundary, which would be <%= newBoundary.feature.properties.CHANGE %> This means that you would be assigned to <%= helpers.learndcLink(newES) %> instead of <%= helpers.learndcLink(oldES) %>.</p>
+                <p>Under the new boundary proposal, your address would be assigned to a different school boundary, which would be <%= newBoundary.feature.properties.CHANGE %> This means that you would be zoned for <%= helpers.learndcLink(newES) %> instead of <%= helpers.learndcLink(oldES) %>.</p>
 
             <% } } else if (newBoundary.feature.properties.CHANGE === 'unchanged.') { %>
 
-                <p>Under the new boundary proposal, your school boundary would remain unchanged. This means you would continue to be assigned to your current neighborhood elementary school, <%= helpers.learndcLink(newES) %>.</p>
+                <p>Under the new boundary proposal, your school boundary would remain unchanged. This means you would continue to be zoned for your current neighborhood elementary school, <%= helpers.learndcLink(newES) %>.</p>
 
             <% } else { %>
 
-                <p>Under the new boundary proposal, your current school boundary would be <%= newBoundary.feature.properties.CHANGE %> Despite the change, you would continue to be assigned to your current neighborhood elementary school, <%= helpers.learndcLink(newES) %>.</p>
+                <p>Under the new boundary proposal, your current school boundary would be <%= newBoundary.feature.properties.CHANGE %> Despite the change, you would continue to be zoned for your current neighborhood elementary school, <%= helpers.learndcLink(newES) %>.</p>
+
+            <% } %>
+
+            <% if (boundaryMS && boundaryMS !== newES && _.contains(boundaryMS.grades, "01")) { %>
+
+                <p>Due to inconsistencies between school boundaries, your address is zoned for an additional elementary school, <%= helpers.learndcLink(boundaryMS) %>. As is explained in the <a href="#feeder-patterns">feeder patterns section</a>, the new boundary proposal would zone each address for only a single school.</p>
 
             <% } %>
 
@@ -165,8 +171,8 @@
                 <% } %>
             <% } } %>
 
-            <% if (boundaryMS) { %>
-                <p>In addition to the middle school specified by your feeder pattern, your address is currently zoned for an additional middle school, <%= helpers.learndcLink(boundaryMS) %>. This is a result of inconsistencies between the elementary and middle school boundaries. In the Advisory Committee's proposal, middle school boundaries will match those of their feeder elementary schools, which means that each address will only be zoned for a single school.</p>
+            <% if (boundaryMS || boundaryHS) { %>
+                <p>In addition to the schools specified by your feeder pattern, your address is currently zoned for <% if (boundaryMS) { %>an additional middle school, <%= helpers.learndcLink(boundaryMS) %><% } %><% if (boundaryMS && boundaryHS) { %>, and <% } %><% if (boundaryHS) { %>an additional high school, <%= helpers.learndcLink(boundaryHS) %><% } %>. This is a result of inconsistencies between the school boundaries. Currently, students can either follow their feeder pattern or attend their in-boundary school. In the Advisory Committee's proposal, boundaries of the middle and high schools will match their feeder school boundaries, which means that your address would only be zoned for the schools proposed below.</p>
             <% } %>
 
             <div class="row">
@@ -432,7 +438,7 @@
     <script src="js/main.js"></script>
 
     <script>
-        window.templateVersion = '1.3';
+        window.templateVersion = '1.4';
 
         var generateGUID = function () {
             function _p8(s) {
