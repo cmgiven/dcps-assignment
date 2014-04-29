@@ -1,4 +1,4 @@
-{"version":"1.5","schools":
+{"version":"1.6","schools":
 [
   {
     "school_code":"249",
@@ -1522,7 +1522,7 @@
     "marid":310614,
     "phone":"202-673-7308",
     "choice_set":"S",
-    "choice_set_schools":["204","227","284"],
+    "choice_set_schools":["204","227","284","292"],
     "ms_choice_set":["NEW"],
     "n_eligible":217,
     "n_attending":68,
@@ -1549,7 +1549,7 @@
     "marid":294528,
     "phone":"202-673-7280",
     "choice_set":"S",
-    "choice_set_schools":["204","227","284"],
+    "choice_set_schools":["204","227","284","292"],
     "ms_choice_set":["246","405"],
     "n_eligible":518,
     "n_attending":248,
@@ -1576,7 +1576,7 @@
     "marid":235863,
     "phone":"202-939-5390",
     "choice_set":"S",
-    "choice_set_schools":["204","227","284"],
+    "choice_set_schools":["204","227","284","292"],
     "ms_choice_set":["NEW"],
     "n_eligible":413,
     "n_attending":133,
