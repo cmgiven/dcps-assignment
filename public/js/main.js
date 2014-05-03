@@ -170,6 +170,18 @@ $(function () {
                     fillOpacity: 0
                 })
                 .addTo(boundaryMap);
+
+            if (data.mergedBoundaries.length > 0) {
+                _.each(data.mergedBoundaries, function (layer) {
+                    layer.setStyle({
+                        color: orange,
+                        weight: 3,
+                        opacity: 0.5,
+                        fillOpacity: 0
+                    })
+                    .addTo(boundaryMap);
+                });
+            }
         }
 
         data.newBoundary
@@ -295,6 +307,12 @@ $(function () {
 
         function boundaryChanged() { return oldES !== newES; }
 
+        function mergedBoundaries() {
+            return _.filter(oldBoundariesGJLayer._layers, function (layer) {
+                return layer.feature.properties.SCHOOLCODE === oldEScode && layer !== oldBoundary;
+            });
+        }
+
         function choiceSet() {
             var esSchools = _.map(newES.choice_set_schools, function (code) {
                     return schoolForCode(code);
@@ -379,6 +397,7 @@ $(function () {
             'oldBoundary': oldBoundary,
             'newBoundary': newBoundary,
             'boundaryChanged': boundaryChanged(),
+            'mergedBoundaries': mergedBoundaries(),
             'oldES': oldES,
             'newES': newES,
             'feederPattern': feederPattern,

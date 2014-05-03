@@ -137,6 +137,9 @@
                         <% if (newBoundary.feature.properties.CHANGE !== 'unchanged.') { %>
                             <li><i class="fa fa-minus orange"></i> Current School Boundary</li>
                         <% } %>
+                        <% if (mergedBoundaries.length > 0) { %>
+                            <li><i class="fa fa-minus ltorange"></i> Additional areas zoned for current school</li>
+                        <% } %>
                     </ul>
                     <p>The Advisory Committee says, "<%= newBoundary.feature.properties.DESCRIPT1 + newBoundary.feature.properties.DESCRIPT2 %>"</p>
                 </div>
@@ -438,7 +441,7 @@
     <script src="js/main.js"></script>
 
     <script>
-        window.templateVersion = '1.4';
+        window.templateVersion = '1.5';
 
         var generateGUID = function () {
             function _p8(s) {
