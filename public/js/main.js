@@ -417,7 +417,7 @@ $(function () {
 
     templateHelpers.learndcURL = function (code) {
         code = code.length === 4 ? code : '0' + code;
-        return 'http://www.learndc.org/schoolprofiles/view#' + code + '/overview';
+        return 'http://www.learndc.org/schoolprofiles/view?s=' + code + '#overview';
     };
 
     templateHelpers.learndcLink = function (school) {
